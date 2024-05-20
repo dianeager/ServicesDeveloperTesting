@@ -8,6 +8,7 @@ public class AddingEmployees
     [Theory]
     [InlineData("Boba", "Fett", "fett-boba")]
     [InlineData("Luke", "Skywalker", "skywalker-luke")]
+    [InlineData("Joseph", null, "joseph")]
     public async Task Bannana(string firstName, string lastName, string expectedId)
     {
         // Given
