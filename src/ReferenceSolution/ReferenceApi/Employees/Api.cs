@@ -1,13 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement.Mvc;
 
 namespace ReferenceApi.Employees;
 
+[FeatureGate("Employees")]
 public class Api : ControllerBase
 {
     [HttpPost("employees")]
-    public async Task<ActionResult> AddEmployeeAsync()
+    public async Task<ActionResult> AddEmployeeAsync(
+       [FromBody] EmployeeCreateRequest request)
     {
-        return StatusCode(201);
+        var response = new EmployeeResponseItem
+        {
+            Id = $"{request.LastName.ToLower()}-{request.FirstName.ToLower()}",
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+        };
+        return StatusCode(201, response);
     }
 }
 
